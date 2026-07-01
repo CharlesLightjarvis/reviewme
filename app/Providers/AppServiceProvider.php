@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 use ImageKit\ImageKit;
+use Inertia\ExceptionResponse;
+use Inertia\Inertia;
 use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
 use Laravel\Fortify\Contracts\RegisterResponse as RegisterResponseContract;
 use League\Flysystem\Filesystem;
@@ -48,6 +50,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->configureDefaults();
         $this->configureStorage();
+        $this->configureErrorHandling();
     }
 
     /**
@@ -92,5 +95,24 @@ class AppServiceProvider extends ServiceProvider
                 ->uncompromised()
             : null,
         );
+    }
+
+    /**
+     * Render a branded Inertia error page for HTTP errors in production.
+     * Left alone in local/testing so Laravel's debug error screens still show.
+     */
+    protected function configureErrorHandling(): void
+    {
+        if (! app()->isProduction()) {
+            return;
+        }
+
+        Inertia::handleExceptionsUsing(function (ExceptionResponse $response) {
+            if (in_array($response->statusCode(), [403, 404, 500, 503], true)) {
+                return $response->render('error-page', [
+                    'status' => $response->statusCode(),
+                ])->withSharedData();
+            }
+        });
     }
 }

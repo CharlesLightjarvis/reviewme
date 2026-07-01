@@ -24,6 +24,8 @@ createInertiaApp({
                 return AuthLayout;
             case name.startsWith('settings/'):
                 return [AppLayout, SettingsLayout];
+            case name === 'error-page':
+                return null;
             default:
                 return AppLayout;
         }
