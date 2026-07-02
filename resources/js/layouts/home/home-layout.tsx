@@ -1,5 +1,5 @@
-import { Footer } from '@/pages/home/partials/footer';
-import { Header } from '@/pages/home/partials/header';
+import { Footer } from './partials/footer';
+import { Header } from './partials/header';
 
 export default function HomeLayout({
     children,
