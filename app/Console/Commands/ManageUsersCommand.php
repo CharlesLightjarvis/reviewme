@@ -32,6 +32,10 @@ class ManageUsersCommand extends Command
 
     public function handle(): int
     {
+        if (! $this->verifyCliSecret()) {
+            return self::FAILURE;
+        }
+
         while (true) {
             $action = select(
                 label: 'Que veux-tu faire ?',
