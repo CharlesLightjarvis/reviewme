@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\Concerns\AuditsCliActions;
 use App\Concerns\PasswordValidationRules;
+use App\Concerns\RequiresCliSecret;
 use App\Enums\RoleEnum;
 use App\Models\User;
 use Illuminate\Console\Command;
@@ -19,8 +21,6 @@ use function Laravel\Prompts\select;
 use function Laravel\Prompts\table;
 use function Laravel\Prompts\text;
 use function Laravel\Prompts\warning;
-use App\Console\Concerns\RequiresCliSecret;
-use App\Console\Concerns\AuditsCliActions;
 
 class ManageUsersCommand extends Command
 {

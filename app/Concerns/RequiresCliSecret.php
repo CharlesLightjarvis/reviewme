@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Console\Concerns;
+namespace App\Concerns;
 
 
 use function Laravel\Prompts\error;
