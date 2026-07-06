@@ -123,4 +123,6 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'cli_admin_secret' => env('CLI_ADMIN_SECRET'),
+
 ];
